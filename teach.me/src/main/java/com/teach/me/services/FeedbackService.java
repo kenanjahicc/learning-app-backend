@@ -1,30 +1,48 @@
 package com.teach.me.services;
 
 import com.teach.me.models.FeedbackDto;
+import com.teach.me.models.entities.Feedback;
+import com.teach.me.repositories.FeedbackRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.Date;
 
 @Service
 public class FeedbackService {
 
+    private final FeedbackRepository feedbackRepository;
+
+    public FeedbackService(FeedbackRepository feedbackRepository) {
+        this.feedbackRepository = feedbackRepository;
+    }
+
     public FeedbackDto getFeedback(long id) {
-        return new FeedbackDto(id, "Complaint", "Math350", "Zeljko Juric", new Date(), "Everything ok");
+        Feedback feedback = feedbackRepository.getById(id);
+        return new FeedbackDto(feedback.getId(), feedback.getTitle(), feedback.getCourseName(), feedback.getProfName(), feedback.getDate(), feedback.getContent());
     }
 
-    public FeedbackDto createFeedback(FeedbackDto feedback) {
-        feedback.setId(156L);
-        feedback.setDate(new Date());
-        // todo set.professorId() here or just put a name?
-        return feedback;
+    public FeedbackDto createFeedback(FeedbackDto feedbackDto) {
+        Feedback feedback = new Feedback();
+        feedback.setProfName(feedbackDto.getProfName());
+        feedback.setDate(feedbackDto.getDate());
+        feedback.setContent(feedbackDto.getContent());
+        feedback.setTitle(feedbackDto.getTitle());
+        feedback.setCourseName(feedbackDto.getCourseName());
+        feedbackRepository.save(feedback);
+        feedbackDto.setId(feedback.getId());
+        return feedbackDto;
     }
 
-    public FeedbackDto updateFeedback(long id, FeedbackDto feedback) {
-        feedback.setId(id);
-        return feedback;
+    public FeedbackDto updateFeedback(long id, FeedbackDto feedbackDto) {
+        Feedback feedback = feedbackRepository.getById(id);
+        feedback.setProfName(feedbackDto.getProfName());
+        feedback.setDate(feedbackDto.getDate());
+        feedback.setContent(feedbackDto.getContent());
+        feedback.setTitle(feedbackDto.getTitle());
+        feedback.setCourseName(feedbackDto.getCourseName());
+        feedbackRepository.save(feedback);
+        return feedbackDto;
     }
 
     public void deleteFeedback(long id) {
-        System.out.println("Deleted feedback with id" + id);
+        feedbackRepository.deleteById(id);
     }
 }
