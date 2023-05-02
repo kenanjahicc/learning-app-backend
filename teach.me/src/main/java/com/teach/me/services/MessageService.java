@@ -1,27 +1,36 @@
 package com.teach.me.services;
 
 import com.teach.me.models.MessageDto;
+import com.teach.me.models.entities.Message;
+import com.teach.me.repositories.MessageRepository;
+import org.hibernate.collection.spi.PersistentList;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class MessageService {
 
-    public static MessageDto getMessage(long id){
+    private final MessageRepository messageRepository;
 
-        return new MessageDto (id,"TestSender","TestReciever","testContent",new Date());
-
-    }
-    public static boolean addingMessage (MessageDto x){
-        return true;
-
-    }
-    public static void editMessage (MessageDto x){
-        x.setContent("new Message content");
-    }
-    public static void dltMessage (MessageDto x){
-        x.setContent("Message has been deleted");
+    public MessageService(MessageRepository messageRepository) {
+        this.messageRepository = messageRepository;
     }
 
+    public MessageDto getMessage(long id){
+        Message b = messageRepository.findById(id).get();
+       return new MessageDto(b.getId(), b.getSender(), b.getReciever(), b.getContent(),b.getTime());
+    }
+
+    public List<MessageDto> getMessages (){
+        List<Message> lista = messageRepository.findAll();
+        List<MessageDto> listadto = new ArrayList<>();
+
+        for (Message a:lista) {
+            listadto.add(new MessageDto(a.getId(),a.getSender(),a.getReciever(),a.getContent(),a.getTime()));
+
+        }
+        return listadto;
+    }
 }
