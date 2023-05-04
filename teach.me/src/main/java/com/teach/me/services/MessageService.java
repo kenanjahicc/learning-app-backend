@@ -20,7 +20,7 @@ public class MessageService {
 
     public MessageDto getMessage(long id){
         Message b = messageRepository.findById(id).get();
-       return new MessageDto(b.getId(), b.getSender(), b.getReciever(), b.getContent(),b.getTime());
+       return new MessageDto(b.getId(), b.getSender(), b.getReceiver(), b.getContent(),b.getTime());
     }
 
     public List<MessageDto> getMessages (){
@@ -28,9 +28,14 @@ public class MessageService {
         List<MessageDto> listadto = new ArrayList<>();
 
         for (Message a:lista) {
-            listadto.add(new MessageDto(a.getId(),a.getSender(),a.getReciever(),a.getContent(),a.getTime()));
+            listadto.add(new MessageDto(a.getId(),a.getSender(),a.getReceiver(),a.getContent(),a.getTime()));
 
         }
         return listadto;
+    }
+
+    public void addMessage(Message message) {
+        messageRepository.save(message);
+
     }
 }
