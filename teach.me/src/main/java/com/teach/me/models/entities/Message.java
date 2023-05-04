@@ -18,12 +18,12 @@ public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name="Sender")
-    private String Sender;
-    @Column(name="Reciever")
-    private String Reciever;
-    @Column(name="Content")
-    private String Content;
+    @Column(name="sender")
+    private String sender;
+    @Column(name="receiver")
+    private String Receiver;
+    @Column(name="content")
+    private String content;
     @Column(name="time")
     private Date time;
 

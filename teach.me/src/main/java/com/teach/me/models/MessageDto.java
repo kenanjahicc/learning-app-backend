@@ -13,7 +13,7 @@ import java.util.Date;
 public class MessageDto {
     private Long id;
     private String Sender;
-    private String Reciever;
+    private String Receiver;
     private String Content;
     private Date time;
 }
