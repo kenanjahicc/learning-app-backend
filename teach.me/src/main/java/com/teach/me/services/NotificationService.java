@@ -28,4 +28,7 @@ public class NotificationService {
         Notification a=notificationRepository.findById(id).get();
         return new NotificationDto(a.getId(),a.getTitle(),a.getDescription(),a.getTime());
     }
+    public long getNotificationCount(){
+        return notificationRepository.count();
+    }
 }

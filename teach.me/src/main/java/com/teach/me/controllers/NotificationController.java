@@ -24,6 +24,9 @@ public class NotificationController {
     public NotificationDto getNotification(@PathVariable("id") long id){
         return notificationService.getNotification(id);
     }
-
+    @GetMapping("num")
+    public long getNotificationCount(){
+        return notificationService.getNotificationCount();
+    }
 
 }
