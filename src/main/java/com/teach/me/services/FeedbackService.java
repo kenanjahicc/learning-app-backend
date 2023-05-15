@@ -5,6 +5,8 @@ import com.teach.me.models.entities.Feedback;
 import com.teach.me.repositories.FeedbackRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class FeedbackService {
 
@@ -15,7 +17,7 @@ public class FeedbackService {
     }
 
     public FeedbackDto getFeedback(long id) {
-        Feedback feedback = feedbackRepository.getById(id);
+        Feedback feedback = getEntity(id);
         return new FeedbackDto(feedback.getId(), feedback.getTitle(), feedback.getCourseName(), feedback.getProfName(), feedback.getDate(), feedback.getContent());
     }
 
@@ -32,7 +34,7 @@ public class FeedbackService {
     }
 
     public FeedbackDto updateFeedback(long id, FeedbackDto feedbackDto) {
-        Feedback feedback = feedbackRepository.getById(id);
+        Feedback feedback = getEntity(id);
         feedback.setProfName(feedbackDto.getProfName());
         feedback.setDate(feedbackDto.getDate());
         feedback.setContent(feedbackDto.getContent());
@@ -44,5 +46,13 @@ public class FeedbackService {
 
     public void deleteFeedback(long id) {
         feedbackRepository.deleteById(id);
+    }
+
+    public Feedback getEntity(long id) {
+        Optional<Feedback> feedbackOptional = feedbackRepository.findById(id);
+        if (feedbackOptional.isPresent()) {
+            return feedbackOptional.get();
+        }
+        throw new RuntimeException("does not exist");
     }
 }
