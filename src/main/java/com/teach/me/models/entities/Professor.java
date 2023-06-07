@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "professor")
@@ -19,22 +20,23 @@ public class Professor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @ManyToOne
+    @JoinColumn(name = "course", referencedColumnName = "id")
+    private Course course;
+
+    @ManyToMany
+    @JoinColumn(name = "hobby", referencedColumnName = "id")
+    private List<Hobby> hobbys;
+
     @Column(name = "fullName")
     private String fullName;
 
-    @Column(name = "imageUrl")
-    private String imageUrl;
+    @OneToOne
+    @JoinColumn(name = "bug_report", referencedColumnName = "id")
+    private BugReport bugReport;
 
-    @ElementCollection
-    @Column(name = "courses")
-    private ArrayList<String> courses;
-
-    @Column(name = "cvUrl")
-    private String cvUrl;
-
-    @ElementCollection
-    @Column(name = "hobbies")
-    private ArrayList<String> hobbies;
+//    @Column(name = "cvUrl")
+//    private String cvUrl;
 
     @Column(name = "rating")
     private long rating;

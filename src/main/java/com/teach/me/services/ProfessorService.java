@@ -18,7 +18,7 @@ public class ProfessorService {
 
     public ProfessorDto getProfessor(long id) {
         Professor professor = getEntity(id);
-        return new ProfessorDto(professor.getId(), professor.getFullName(), professor.getImageUrl(), professor.getCourses(), professor.getCvUrl(), professor.getHobbies(), professor.getRating());
+        return toDto(professor);
     }
 
     public Professor getEntity(long id) {
@@ -28,4 +28,16 @@ public class ProfessorService {
         }
         throw new RuntimeException("does not exist");
     }
+    private static ProfessorDto toDto(Professor professor) {
+        ProfessorDto dto = new ProfessorDto();
+        dto.setId(professor.getId());
+        dto.setFullName(professor.getFullName());
+//        dto.setImageUrl(professor.getImageUrl());
+//        dto.setCourses(professor.getCourses());
+//        dto.setCvUrl(professor.getCvUrl());
+//        dto.setHobbies(professor.getHobbies());
+        dto.setRating(professor.getRating());
+        return dto;
+    }
+
 }

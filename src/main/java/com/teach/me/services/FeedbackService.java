@@ -1,10 +1,14 @@
 package com.teach.me.services;
 
 import com.teach.me.models.FeedbackDto;
+import com.teach.me.models.ProfessorDto;
 import com.teach.me.models.entities.Feedback;
+import com.teach.me.models.entities.Professor;
 import com.teach.me.repositories.FeedbackRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,16 +22,22 @@ public class FeedbackService {
 
     public FeedbackDto getFeedback(long id) {
         Feedback feedback = getEntity(id);
-        return new FeedbackDto(feedback.getId(), feedback.getTitle(), feedback.getCourseName(), feedback.getProfName(), feedback.getDate(), feedback.getContent());
+        return new FeedbackDto(feedback.getId(), feedback.getTitle(), feedback.getDate(), feedback.getContent());
+    }
+    public List<FeedbackDto> getFeedbacks(long id){
+        List<Feedback> feedbacks = feedbackRepository.getFeedbacksByIdOrderByDateDesc(id);
+        List<FeedbackDto> feedbackDtos = new ArrayList<>();
+        for (Feedback f: feedbacks) {
+            feedbackDtos.add(toDto(f));
+        }
+        return feedbackDtos;
     }
 
     public FeedbackDto createFeedback(FeedbackDto feedbackDto) {
         Feedback feedback = new Feedback();
-        feedback.setProfName(feedbackDto.getProfName());
         feedback.setDate(feedbackDto.getDate());
         feedback.setContent(feedbackDto.getContent());
         feedback.setTitle(feedbackDto.getTitle());
-        feedback.setCourseName(feedbackDto.getCourseName());
         feedbackRepository.save(feedback);
         feedbackDto.setId(feedback.getId());
         return feedbackDto;
@@ -35,11 +45,9 @@ public class FeedbackService {
 
     public FeedbackDto updateFeedback(long id, FeedbackDto feedbackDto) {
         Feedback feedback = getEntity(id);
-        feedback.setProfName(feedbackDto.getProfName());
         feedback.setDate(feedbackDto.getDate());
         feedback.setContent(feedbackDto.getContent());
         feedback.setTitle(feedbackDto.getTitle());
-        feedback.setCourseName(feedbackDto.getCourseName());
         feedbackRepository.save(feedback);
         return feedbackDto;
     }
@@ -54,5 +62,13 @@ public class FeedbackService {
             return feedbackOptional.get();
         }
         throw new RuntimeException("does not exist");
+    }
+    private static FeedbackDto toDto(Feedback feedback) {
+        FeedbackDto feedbackDto = new FeedbackDto();
+        feedbackDto.setId(feedback.getId());
+        feedbackDto.setTitle(feedback.getTitle());
+        feedbackDto.setDate(feedback.getDate());
+        feedbackDto.setContent(feedback.getContent());
+        return feedbackDto;
     }
 }
