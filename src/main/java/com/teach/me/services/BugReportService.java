@@ -3,7 +3,6 @@ package com.teach.me.services;
 import com.teach.me.models.BugReportDto;
 import com.teach.me.models.entities.BugReport;
 import com.teach.me.repositories.BugReportRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

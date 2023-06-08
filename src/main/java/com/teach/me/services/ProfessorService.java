@@ -2,6 +2,8 @@ package com.teach.me.services;
 
 import com.teach.me.models.ProfessorDto;
 import com.teach.me.models.entities.Professor;
+import com.teach.me.repositories.CourseRepository;
+import com.teach.me.repositories.HobbyRepository;
 import com.teach.me.repositories.ProfessorRepository;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +13,13 @@ import java.util.Optional;
 public class ProfessorService {
 
     private final ProfessorRepository professorRepository;
+    private final HobbyRepository hobbyRepository;
+    private final CourseRepository courseRepository;
 
-    public ProfessorService(ProfessorRepository professorRepository) {
+    public ProfessorService(ProfessorRepository professorRepository, HobbyRepository hobbyRepository, CourseRepository courseRepository) {
         this.professorRepository = professorRepository;
+        this.courseRepository = courseRepository;
+        this.hobbyRepository = hobbyRepository;
     }
 
     public ProfessorDto getProfessor(long id) {
@@ -28,15 +34,14 @@ public class ProfessorService {
         }
         throw new RuntimeException("does not exist");
     }
+
     private static ProfessorDto toDto(Professor professor) {
         ProfessorDto dto = new ProfessorDto();
         dto.setId(professor.getId());
         dto.setFullName(professor.getFullName());
-//        dto.setImageUrl(professor.getImageUrl());
-//        dto.setCourses(professor.getCourses());
-//        dto.setCvUrl(professor.getCvUrl());
-//        dto.setHobbies(professor.getHobbies());
         dto.setRating(professor.getRating());
+        dto.setHobby(professor.getHobby().getDescription());
+        dto.setCourse(professor.getCourse().getName());
         return dto;
     }
 

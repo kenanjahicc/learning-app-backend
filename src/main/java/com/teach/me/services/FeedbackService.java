@@ -1,13 +1,12 @@
 package com.teach.me.services;
 
 import com.teach.me.models.FeedbackDto;
-import com.teach.me.models.ProfessorDto;
 import com.teach.me.models.entities.Feedback;
-import com.teach.me.models.entities.Professor;
 import com.teach.me.repositories.FeedbackRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,12 +21,13 @@ public class FeedbackService {
 
     public FeedbackDto getFeedback(long id) {
         Feedback feedback = getEntity(id);
-        return new FeedbackDto(feedback.getId(), feedback.getTitle(), feedback.getDate(), feedback.getContent());
+        return toDto(feedback);
     }
-    public List<FeedbackDto> getFeedbacks(long id){
-        List<Feedback> feedbacks = feedbackRepository.getFeedbacksByIdOrderByDateDesc(id);
+
+    public List<FeedbackDto> getFeedbacks(long id) {
+        List<Feedback> feedbacks = feedbackRepository.getFeedbacksById(id);
         List<FeedbackDto> feedbackDtos = new ArrayList<>();
-        for (Feedback f: feedbacks) {
+        for (Feedback f : feedbacks) {
             feedbackDtos.add(toDto(f));
         }
         return feedbackDtos;
@@ -35,7 +35,7 @@ public class FeedbackService {
 
     public FeedbackDto createFeedback(FeedbackDto feedbackDto) {
         Feedback feedback = new Feedback();
-        feedback.setDate(feedbackDto.getDate());
+        feedback.setDate(new Date());
         feedback.setContent(feedbackDto.getContent());
         feedback.setTitle(feedbackDto.getTitle());
         feedbackRepository.save(feedback);
@@ -63,6 +63,7 @@ public class FeedbackService {
         }
         throw new RuntimeException("does not exist");
     }
+
     private static FeedbackDto toDto(Feedback feedback) {
         FeedbackDto feedbackDto = new FeedbackDto();
         feedbackDto.setId(feedback.getId());

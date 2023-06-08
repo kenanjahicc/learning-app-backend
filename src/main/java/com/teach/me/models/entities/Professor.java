@@ -6,9 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 @Table(name = "professor")
 @Getter
@@ -24,9 +21,9 @@ public class Professor {
     @JoinColumn(name = "course", referencedColumnName = "id")
     private Course course;
 
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "hobby", referencedColumnName = "id")
-    private List<Hobby> hobbys;
+    private Hobby hobby;
 
     @Column(name = "fullName")
     private String fullName;
@@ -34,9 +31,6 @@ public class Professor {
     @OneToOne
     @JoinColumn(name = "bug_report", referencedColumnName = "id")
     private BugReport bugReport;
-
-//    @Column(name = "cvUrl")
-//    private String cvUrl;
 
     @Column(name = "rating")
     private long rating;

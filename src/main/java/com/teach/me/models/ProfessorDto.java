@@ -16,5 +16,6 @@ public class ProfessorDto {
     private Long id;
     private String fullName;
     private Long rating;
-
+    private String course;
+    private String hobby;
 }

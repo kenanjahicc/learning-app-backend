@@ -20,5 +20,8 @@ public class Course {
     private String Name;
     @Column(name = "code")
     private String code;
+    @ManyToOne
+    @JoinColumn(name = "professor", referencedColumnName = "id")
+    private Professor professor;
 
 }

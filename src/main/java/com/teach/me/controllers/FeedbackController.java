@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/feedback")  // ../feedback --> dolazi se do kontrolera
+@RequestMapping("/feedback")
 @RestController()
 public class FeedbackController {
 

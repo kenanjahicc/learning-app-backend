@@ -18,4 +18,8 @@ public class Hobby {
     private long id;
     @Column(name = "description")
     private String description;
+    @ManyToOne
+    @JoinColumn(name = "professor", referencedColumnName = "id")
+    private Professor professor;
+
 }
