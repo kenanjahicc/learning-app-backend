@@ -4,7 +4,9 @@ import com.teach.me.models.FeedbackDto;
 import com.teach.me.services.FeedbackService;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/feedback")  // ../feedback --> dolazi se do kontrolera
+import java.util.List;
+
+@RequestMapping("/feedback")
 @RestController()
 public class FeedbackController {
 
@@ -18,6 +20,9 @@ public class FeedbackController {
     public FeedbackDto getFeedback(@PathVariable long id) {
         return feedbackService.getFeedback(id);
     }
+
+    @GetMapping("/{id}/feedbacks")
+    public List<FeedbackDto> getFeedbacks(@PathVariable long id){return feedbackService.getFeedbacks(id);}
 
     @PostMapping
     public FeedbackDto createFeedback(@RequestBody FeedbackDto feedback) {
