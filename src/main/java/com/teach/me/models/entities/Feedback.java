@@ -17,10 +17,10 @@ import java.util.Date;
 public class Feedback {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long fid;
 
     @ManyToOne
-    @JoinColumn(name = "professor", referencedColumnName = "id")
+    @JoinColumn(name = "profId", referencedColumnName = "id")
     private Professor professor;
 
     @Column(name = "title")
@@ -31,5 +31,6 @@ public class Feedback {
 
     @Column(name = "content")
     private String content;
+
 
 }
