@@ -35,4 +35,16 @@ public class Professor {
     @Column(name = "rating")
     private long rating;
 
+    @Column(name = "degree")
+    private String degree;
+
+    @Column(name = "experience")
+    private String experience;
+
+    @Column(name= "contact")
+    private String email;
+
+    @Column(name = "teaching_style")
+    private String style;
+
 }
