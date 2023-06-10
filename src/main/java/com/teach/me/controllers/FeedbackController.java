@@ -2,12 +2,14 @@ package com.teach.me.controllers;
 
 import com.teach.me.models.FeedbackDto;
 import com.teach.me.services.FeedbackService;
+import jakarta.transaction.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RequestMapping("/feedback")
 @RestController()
+@Transactional
 public class FeedbackController {
 
     private final FeedbackService feedbackService;
@@ -21,15 +23,17 @@ public class FeedbackController {
         return feedbackService.getFeedback(id);
     }
 
-    @GetMapping("/{id}/feedbacks")
-    public List<FeedbackDto> getFeedbacks(@PathVariable long id){return feedbackService.getFeedbacks(id);}
-
-    @PostMapping
-    public FeedbackDto createFeedback(@RequestBody FeedbackDto feedback) {
-        return feedbackService.createFeedback(feedback);
+    @GetMapping("/{profId}/feedbacks")
+    public List<FeedbackDto> getFeedbacks(@PathVariable long profId) {
+        return feedbackService.getFeedbacks(profId);
     }
 
-    @PutMapping("/{id}")
+    @PostMapping("/{profId}/feedback")
+    public FeedbackDto createFeedback(@PathVariable int profId, @RequestBody FeedbackDto feedback) {
+        return feedbackService.createFeedback(profId, feedback);
+    }
+
+    @PutMapping("/{id}/edit")
     public FeedbackDto updateFeedback(@PathVariable long id, @RequestBody FeedbackDto feedback) {
         return feedbackService.updateFeedback(id, feedback);
     }

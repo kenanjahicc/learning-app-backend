@@ -98,7 +98,7 @@ public class FeedbackServiceUnitTest {
         inputFeedbackDto.setId(1L); // reset id
         long id = 1L;
         Feedback outputFeedback = FeedbackTest.feedback();
-        outputFeedback.setId(id);
+        outputFeedback.setFid(id);
 
         Mockito.when(feedbackRepository.findById(id))
                 .thenReturn(Optional.of(outputFeedback));
