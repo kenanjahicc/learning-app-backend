@@ -22,10 +22,10 @@ public class ProfessorTest {
         Professor professor = new Professor();
         professor.setId(id1);
         professor.setFullName(fullName1);
-        professor.setImageUrl(imageUrl1);
-        professor.setCourses(courses1);
-        professor.setCvUrl(cvUrl1);
-        professor.setHobbies(hobbies1);
+//        professor.setImageUrl(imageUrl1);
+//        professor.setCourses(courses1);
+//        professor.setCvUrl(cvUrl1);
+//        professor.setHobbies(hobbies1);
 
         return professor;
     }
