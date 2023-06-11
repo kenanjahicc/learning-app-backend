@@ -17,21 +17,21 @@ public class FeedbackTest {
     private static Date date1 = new Date();
 
 
-    public static Feedback feedback() {
-        Feedback feedback = new Feedback();
-        feedback.setId(id1);
-        feedback.setTitle(title1);
-        feedback.setCourseName(courseName1);
-        feedback.setProfName(profName1);
-        feedback.setDate(date1);
-        return feedback;
-    }
+//    public static Feedback feedback() {
+//        Feedback feedback = new Feedback();
+//        feedback.setId(id1);
+//        feedback.setTitle(title1);
+//        feedback.setCourseName(courseName1);
+//        feedback.setProfName(profName1);
+//        feedback.setDate(date1);
+//        return feedback;
+//    }
 
-    public static FeedbackDto feedbackDto1() {
-        return new FeedbackDto(id1, title1, courseName1, profName1, date1,  "Professor is OK");
-    }
-
-    public static FeedbackDto feedbackDto3() {
-        return new FeedbackDto(3L, "Feedback", "OOP", "Edin Fazlic", new Date(), "Everything OK");
-    }
+//    public static FeedbackDto feedbackDto1() {
+//        return new FeedbackDto(id1, title1, courseName1, profName1, date1,  "Professor is OK");
+//    }
+//
+//    public static FeedbackDto feedbackDto3() {
+//        return new FeedbackDto(3L, "Feedback", "OOP", "Edin Fazlic", new Date(), "Everything OK");
+//    }
 }
