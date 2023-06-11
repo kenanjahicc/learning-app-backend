@@ -6,8 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -18,4 +16,8 @@ public class ProfessorDto {
     private Long rating;
     private String course;
     private String hobby;
+    private String experience;
+    private String degree;
+    private String email;
+    private String teaching_style;
 }

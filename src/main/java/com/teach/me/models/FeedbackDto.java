@@ -16,7 +16,6 @@ public class FeedbackDto {
     private Long id;
     private String title;
     private Date date;
-    private String profName;
     private String content;
     private Long profId;
 

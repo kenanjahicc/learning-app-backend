@@ -2,8 +2,6 @@ package com.teach.me.services;
 
 import com.teach.me.models.ProfessorDto;
 import com.teach.me.models.entities.Professor;
-import com.teach.me.repositories.CourseRepository;
-import com.teach.me.repositories.HobbyRepository;
 import com.teach.me.repositories.ProfessorRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,18 +11,29 @@ import java.util.Optional;
 public class ProfessorService {
 
     private final ProfessorRepository professorRepository;
-    private final HobbyRepository hobbyRepository;
-    private final CourseRepository courseRepository;
 
-    public ProfessorService(ProfessorRepository professorRepository, HobbyRepository hobbyRepository, CourseRepository courseRepository) {
+    private final HobbyService hobbyService;
+
+    private final CourseService courseService;
+
+    public ProfessorService(ProfessorRepository professorRepository,
+                            HobbyService hobbyService,
+                            CourseService courseService) {
         this.professorRepository = professorRepository;
-        this.courseRepository = courseRepository;
-        this.hobbyRepository = hobbyRepository;
+        this.hobbyService = hobbyService;
+        this.courseService = courseService;
     }
 
     public ProfessorDto getProfessor(long id) {
         Professor professor = getEntity(id);
-        return toDto(professor);
+        ProfessorDto professorDto = toDto(professor);
+        professorDto.setCourse(courseService.getCourseDescription(professor.getCourse().getId()));
+        professorDto.setHobby(hobbyService.getHobbyDescription(professor.getHobby().getId()));
+        professorDto.setExperience(professor.getExperience());
+        professorDto.setDegree(professor.getDegree());
+        professorDto.setEmail(professor.getEmail());
+        professorDto.setTeaching_style(professor.getStyle());
+        return professorDto;
     }
 
     public Professor getEntity(long id) {
@@ -40,8 +49,6 @@ public class ProfessorService {
         dto.setId(professor.getId());
         dto.setFullName(professor.getFullName());
         dto.setRating(professor.getRating());
-        dto.setHobby(professor.getHobby().getDescription());
-        dto.setCourse(professor.getCourse().getName());
         return dto;
     }
 
