@@ -20,3 +20,15 @@ spring:
 
 frontend:
   url: ${FRONTEND_API_URL:"http://localhost:4200"}
+
+security:
+  jwt:
+    token:
+      secret-key: ${SECRET_KEY:wipjd03kmv[wh567gmcvf2p0fh<niyedjgvdckjhkkhVvj;'\986546&*6865&^}
+      token-duration-minutes: ${TOKEN_DURATION_MINUTES:1200}
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
