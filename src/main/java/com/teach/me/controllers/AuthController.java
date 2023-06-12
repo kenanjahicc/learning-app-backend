@@ -3,7 +3,10 @@ package com.teach.me.controllers;
 import com.teach.me.config.CustomAuthenticationManager;
 import com.teach.me.models.dtos.AuthenticationRequestPayload;
 import com.teach.me.models.dtos.AuthenticationResponsePayload;
+import com.teach.me.models.dtos.RegisterRequestPayload;
+import com.teach.me.models.entities.Professor;
 import com.teach.me.models.entities.UserEntity;
+import com.teach.me.repositories.ProfessorRepository;
 import com.teach.me.repositories.UserRepository;
 import com.teach.me.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
@@ -24,20 +27,28 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final CustomAuthenticationManager customAuthenticationManager;
     private final JwtUtil jwtTokenUtil;
-
+    private final ProfessorRepository professorRepository;
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(
-            @RequestBody AuthenticationRequestPayload payload
+            @RequestBody RegisterRequestPayload payload
     ) {
         if(userRepository.findFirstByUsername(payload.getUsername())!=null){
             return ResponseEntity.badRequest().body("Already used username");
         }
         else{
+            if (!payload.getRole().equals("Professor")){
             String op=customAuthenticationManager.passwordEncoder().encode(payload.getPassword());
-            userRepository.save(new UserEntity(payload.getUsername(), op));
-            return  ResponseEntity.ok("\"Data is valid\"");
+            userRepository.save(new UserEntity(payload.getUsername(), op, payload.getEmail()));
+            return  ResponseEntity.ok("\"Data is valid\"");}
+            else {
+                String op=customAuthenticationManager.passwordEncoder().encode(payload.getPassword());
+                professorRepository.save(new Professor(payload.getUsername(), op, payload.getEmail()));
+                return  ResponseEntity.ok("\"Data is valid\"");}
+
         }
     }
+
+
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponsePayload> createAuthenticationToken(
             @RequestBody AuthenticationRequestPayload payload

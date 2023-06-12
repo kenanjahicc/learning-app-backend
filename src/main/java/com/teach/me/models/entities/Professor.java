@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.parameters.P;
 
 @Entity
 @Table(name = "professor")
@@ -13,6 +14,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Professor {
+
+    public Professor (String FullName, String Password, String email){
+       this.fullName= FullName; this.password= Password; this.email= email;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -27,6 +33,9 @@ public class Professor {
 
     @Column(name = "fullName")
     private String fullName;
+
+    @Column(name = "password")
+    private String password;
 
     @OneToOne
     @JoinColumn(name = "bug_report", referencedColumnName = "id")
