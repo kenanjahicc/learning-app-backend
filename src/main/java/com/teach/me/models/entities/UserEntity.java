@@ -17,9 +17,12 @@ public class UserEntity {
   private String username;
   @Column(name="password")
   private String password;
+  @Column(name="email")
+  private String email;
 
-  public UserEntity(String username, String password) {
-    this.username=username;
-    this.password=password;
+  public UserEntity(String username, String password, String email) {
+    this.username = username;
+    this.password = password;
+    this.email = email;
   }
 }
