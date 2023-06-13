@@ -29,7 +29,10 @@ public class MessageService {
         List<MessageDto> listadto = new ArrayList<>();
 
         for (Message a:lista) {
-            if ((a.getReceiver().equals(username) && a.getSender().equals(usertwo)) ||
+            if(a.getReceiver()==null||a.getSender()==null){
+                
+            }
+            else if ((a.getReceiver().equals(username) && a.getSender().equals(usertwo)) ||
                     (a.getSender().equals(username) && a.getReceiver().equals(usertwo))) {
                 listadto.add(new MessageDto(a.getId(), a.getSender(), a.getReceiver(), a.getContent(), a.getTime()));
             }
