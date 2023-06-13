@@ -30,10 +30,10 @@ public class MessageService {
 
         for (Message a:lista) {
             if(a.getReceiver()==null||a.getSender()==null){
-                
+
             }
-            else if ((a.getReceiver().equals(username) && a.getSender().equals(usertwo)) ||
-                    (a.getSender().equals(username) && a.getReceiver().equals(usertwo))) {
+            else if ((a.getReceiver().equals(username) || a.getSender().equals(username)) &&
+                    (a.getSender().equals(usertwo) || a.getReceiver().equals(usertwo))) {
                 listadto.add(new MessageDto(a.getId(), a.getSender(), a.getReceiver(), a.getContent(), a.getTime()));
             }
         }
