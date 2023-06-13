@@ -39,11 +39,13 @@ public class AuthController {
             if (!payload.getRole().equals("Professor")){
             String op=customAuthenticationManager.passwordEncoder().encode(payload.getPassword());
             userRepository.save(new UserEntity(payload.getUsername(), op, payload.getEmail()));
-            return  ResponseEntity.ok("\"Data is valid\"");}
+            return  ResponseEntity.ok("\"Data is valid\"");
+            }
             else {
                 String op=customAuthenticationManager.passwordEncoder().encode(payload.getPassword());
                 professorRepository.save(new Professor(payload.getUsername(), op, payload.getEmail()));
-                return  ResponseEntity.ok("\"Data is valid\"");}
+                return  ResponseEntity.ok("\"Data is valid\"");
+            }
 
         }
     }
@@ -66,6 +68,8 @@ public class AuthController {
 
         return ResponseEntity.ok(new AuthenticationResponsePayload(jwt));
     }
+
+
 
 }
 

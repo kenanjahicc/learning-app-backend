@@ -4,6 +4,7 @@ import com.teach.me.models.MessageDto;
 import com.teach.me.models.entities.Message;
 import com.teach.me.services.MessageService;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.awt.*;
@@ -25,15 +26,15 @@ public class MessageController {
 
     }
 
-    @GetMapping("/messages")
-    public List<MessageDto> getMesages(){
-        return messageService.getMessages();
+    @GetMapping("/messages/{username}/{usertwo}")
+    public List<MessageDto> getMessages(@PathVariable String username, @PathVariable String usertwo){
+        return messageService.getMessages(username,usertwo);
 
     }
 
     @PostMapping(path ="/messages", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void addMessage(@RequestBody Message message){
-        messageService.addMessage(message);
+    public ResponseEntity<String> addMessage(@RequestBody Message message){
+        return messageService.addMessage(message);
     }
 
 
