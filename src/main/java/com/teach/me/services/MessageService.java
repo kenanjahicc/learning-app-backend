@@ -27,14 +27,14 @@ public class MessageService {
        return new MessageDto(b.getId(), b.getSender(), b.getReceiver(), b.getContent(),b.getTime());
     }
 
-    public List<UserEntity> getSenders (String username){
-        List<UserEntity> lista = new ArrayList<>();
+    public List<String> getSenders (String username){
+        List<String> lista = new ArrayList<>();
         List<Message> listaporuka = messageRepository.findAll();
         List<UserEntity> listasvihuser = userRepository.findAll();
 
         for (Message m:listaporuka) {
             for (UserEntity u:listasvihuser) {
-                if (m.getReceiver()!=null && m.getReceiver().equals(username) && !lista.contains(u) && m.getSender().equals(u.getUsername())) lista.add(u);
+                if (m.getReceiver()!=null && m.getReceiver().equals(username) && !lista.contains(u) && m.getSender().equals(u.getUsername())) lista.add(u.getUsername());
             }
 
         }
@@ -42,7 +42,7 @@ public class MessageService {
 
         for (Message m:listaporuka) {
             for (UserEntity u:listasvihuser) {
-                if (m.getSender()!=null && m.getSender().equals(username) && !lista.contains(u) && m.getReceiver().equals(u.getUsername())) lista.add(u);
+                if (m.getSender()!=null && m.getSender().equals(username) && !lista.contains(u) && m.getReceiver().equals(u.getUsername())) lista.add(u.toString());
             }
 
         }
