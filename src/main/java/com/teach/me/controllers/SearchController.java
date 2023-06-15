@@ -25,6 +25,7 @@ public class SearchController {
     public List<ProfessorDto> searchForProfessors(@PathVariable String search){
         List<ProfessorDto> listaNova= new ArrayList<>();
         List<Professor> staraLista=professorRepository.findAll();
+
         for (Professor p:staraLista) {
             if(p.getFullName().startsWith(search)) {
                 listaNova.add(new ProfessorDto(p.getId(), p.getFullName(), p.getRating(), p.getCourse().toString(), p.getHobby().toString(), p.getExperience(), p.getDegree(), p.getEmail(), null));
@@ -32,8 +33,11 @@ public class SearchController {
         }
 
         for (UserEntity us: userRepository.findAll()) {
+            if (us.getUsername().startsWith(search))
             listaNova.add(new ProfessorDto(us.getUsername(),us.getEmail()));
         }
+
+
         return listaNova;
     }
 }
