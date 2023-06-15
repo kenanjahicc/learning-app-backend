@@ -42,7 +42,7 @@ public class MessageService {
 
         for (Message m:listaporuka) {
             for (UserEntity u:listasvihuser) {
-                if (m.getSender()!=null && m.getSender().equals(username) && !lista.contains(u.getUsername()) && m.getReceiver().equals(u.getUsername())) lista.add(u.toString());
+                if (m.getSender()!=null && m.getSender().equals(username) && !lista.contains(u.getUsername()) && m.getReceiver().equals(u.getUsername())) lista.add(u.getUsername());
             }
 
         }
