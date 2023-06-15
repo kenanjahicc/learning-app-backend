@@ -27,13 +27,13 @@ public class SearchController {
         List<Professor> staraLista=professorRepository.findAll();
 
         for (Professor p:staraLista) {
-            if(p.getFullName().startsWith(search)) {
+            if(p.getFullName().contains(search)) {
                 listaNova.add(new ProfessorDto(p.getId(), p.getFullName(), p.getRating(), p.getCourse().toString(), p.getHobby().toString(), p.getExperience(), p.getDegree(), p.getEmail(), null));
             }
         }
 
         for (UserEntity us: userRepository.findAll()) {
-            if (us.getUsername().startsWith(search))
+            if (us.getUsername().contains(search))
             listaNova.add(new ProfessorDto(us.getUsername(),us.getEmail()));
         }
 
