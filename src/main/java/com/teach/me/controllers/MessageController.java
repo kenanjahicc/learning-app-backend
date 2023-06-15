@@ -39,8 +39,8 @@ public class MessageController {
     }
 
     @GetMapping("/mymessages/{username}")
-    public ResponseEntity<List<UserEntity>> getSenders(@PathVariable String username){
-        return ResponseEntity.ok(messageService.getSenders(username));
+    public List<String> getSenders(@PathVariable String username){
+        return messageService.getSenders(username);
 
     }
 
