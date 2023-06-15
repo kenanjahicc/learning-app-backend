@@ -34,7 +34,7 @@ public class MessageService {
 
         for (Message m:listaporuka) {
             for (UserEntity u:listasvihuser) {
-                if (m.getReceiver()!=null && m.getReceiver().equals(username) && !lista.contains(u) && m.getSender().equals(u.getUsername())) lista.add(u.getUsername());
+                if (m.getReceiver()!=null && m.getReceiver().equals(username) && !lista.contains(u.getUsername()) && m.getSender().equals(u.getUsername())) lista.add(u.getUsername());
             }
 
         }
@@ -42,7 +42,7 @@ public class MessageService {
 
         for (Message m:listaporuka) {
             for (UserEntity u:listasvihuser) {
-                if (m.getSender()!=null && m.getSender().equals(username) && !lista.contains(u) && m.getReceiver().equals(u.getUsername())) lista.add(u.toString());
+                if (m.getSender()!=null && m.getSender().equals(username) && !lista.contains(u.getUsername()) && m.getReceiver().equals(u.getUsername())) lista.add(u.toString());
             }
 
         }
