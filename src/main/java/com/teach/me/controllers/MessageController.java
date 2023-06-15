@@ -2,6 +2,7 @@ package com.teach.me.controllers;
 
 import com.teach.me.models.MessageDto;
 import com.teach.me.models.entities.Message;
+import com.teach.me.models.entities.UserEntity;
 import com.teach.me.services.MessageService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,12 @@ public class MessageController {
     @PostMapping(path ="/messages", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> addMessage(@RequestBody Message message){
         return messageService.addMessage(message);
+    }
+
+    @GetMapping("/mymessages/{username}")
+    public ResponseEntity<List<UserEntity>> getSenders(@PathVariable String username){
+        return ResponseEntity.ok(messageService.getSenders(username));
+
     }
 
 

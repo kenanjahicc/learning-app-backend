@@ -2,26 +2,54 @@ package com.teach.me.services;
 
 import com.teach.me.models.MessageDto;
 import com.teach.me.models.entities.Message;
+import com.teach.me.models.entities.UserEntity;
 import com.teach.me.repositories.MessageRepository;
+import com.teach.me.repositories.UserRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Service
 public class MessageService {
 
     private final MessageRepository messageRepository;
+    private final UserRepository userRepository;
 
-    public MessageService(MessageRepository messageRepository) {
+    public MessageService(MessageRepository messageRepository, UserRepository userRepository) {
         this.messageRepository = messageRepository;
+        this.userRepository = userRepository;
     }
 
     public MessageDto getMessage(long id){
         Message b = messageRepository.findById(id).get();
        return new MessageDto(b.getId(), b.getSender(), b.getReceiver(), b.getContent(),b.getTime());
+    }
+
+    public List<UserEntity> getSenders (String username){
+        List<UserEntity> lista = new ArrayList<>();
+        List<Message> listaporuka = messageRepository.findAll();
+        List<UserEntity> listasvihuser = userRepository.findAll();
+
+        for (Message m:listaporuka) {
+            for (UserEntity u:listasvihuser) {
+                if (m.getReceiver()!=null && m.getReceiver().equals(username) && !lista.contains(u) && m.getSender().equals(u.getUsername())) lista.add(u);
+            }
+
+        }
+
+
+        for (Message m:listaporuka) {
+            for (UserEntity u:listasvihuser) {
+                if (m.getSender()!=null && m.getSender().equals(username) && !lista.contains(u) && m.getReceiver().equals(u.getUsername())) lista.add(u);
+            }
+
+        }
+
+
+        return lista;
+
     }
 
     public List<MessageDto> getMessages (String username, String usertwo){
