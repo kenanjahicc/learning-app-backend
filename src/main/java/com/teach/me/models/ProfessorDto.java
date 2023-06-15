@@ -11,6 +11,13 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProfessorDto {
+
+    public ProfessorDto (String fullName, String email){
+        this.fullName = fullName;
+        this.email= email;
+
+    }
+
     private Long id;
     private String fullName;
     private Long rating;
